@@ -46,32 +46,32 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1
-        with:
-         path: ~/.m2/repository
-         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-         restore-keys: |
-           ${{ runner.os }}-maven
-      - uses: actions/download-artifact@master
-        with:
-          name: artifacts
-      - name: Deploy to CloudHub
-        env:
-          USERNAME: ${{ secrets.ANYPOINT_USERNAME }}
-          PASSWORD: ${{ secrets.ANYPOINT_PASSWORD }}
-        run: |
-          artifactName=$(ls *.jar | head -1)
-          mvn package deploy -DmuleDeploy \
-          -Denvironment=Sandbox \
-          -Dcloudhub.application.name=demo-test \
-          -Dusername="$USERNAME" \
-          -Dpassword="$PASSWORD" \
-          -Dapp.runtime=4.4.0 \
-          -DworkerType=MICRO \
-          -Dworkers=1
-      
-     
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v1
+      with:
+       path: ~/.m2/repository
+       key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+       restore-keys: |
+         ${{ runner.os }}-maven
+    - uses: actions/download-artifact@master
+      with:
+        name: artifacts
+    - name: Deploy to CloudHub
+      env:
+        USERNAME: ${{ secrets.ANYPOINT_USERNAME }}
+        PASSWORD: ${{ secrets.ANYPOINT_PASSWORD }}
+      run: |
+        artifactName=$(ls *.jar | head -1)
+        mvn package deploy -DmuleDeploy \
+        -Denvironment=Sandbox \
+        -Dcloudhub.application.name=demo-test \
+        -Dusername="$USERNAME" \
+        -Dpassword="$PASSWORD" \
+        -Dapp.runtime=4.4.0 \
+        -DworkerType=MICRO \
+        -Dworkers=1
+
+
 
 
 
