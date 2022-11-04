@@ -65,8 +65,8 @@ jobs:
           mvn package deploy -DmuleDeploy \
           -Denvironment=Sandbox \
           -Dcloudhub.application.name=demo-test \
-          -Username="$USERNAME" \
-          -Password="$PASSWORD" \
+          -username="$USERNAME" \
+          -password="$PASSWORD" \
           -Dapp.runtime=4.4.0 \
           -DworkerType=MICRO \
           -Dworkers=1
